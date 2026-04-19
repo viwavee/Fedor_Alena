@@ -606,117 +606,210 @@
       margin-bottom: 8px;
     }
 
-    /* 🎨 ВИЗУАЛЬНЫЙ ДРЕСС-КОД: ЦВЕТОВЫЕ КРУЖКИ */
-    .dress-code-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-top: 15px;
-    }
-    
-    .dress-code-column {
-      background: var(--off-white);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid var(--silver-border);
-    }
-    
-    .dress-code-column h4 {
-      color: var(--graphite);
-      margin-bottom: 15px;
-      font-size: 1.2em;
-      font-weight: 500;
-      text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed var(--silver);
-    }
-    
-    .color-swatches {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-    
-    .color-swatch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      min-width: 70px;
-    }
-    
-    .color-circle {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      border: 3px solid var(--white);
-      box-shadow: 0 4px 12px var(--shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .color-circle::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
-      border-radius: 50%;
-    }
-    
-    .color-circle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px var(--silver-glow);
-    }
-    
-    /* Цвета для женщин */
-    .swatch-silver { background: linear-gradient(135deg, #C0C0C0, #E8E8E8); }
-    .swatch-light-silver { background: linear-gradient(135deg, #E8E8E8, #F2F2F2); }
-    .swatch-graphite { background: linear-gradient(135deg, #6B6B6B, #4A4A4A); }
-    .swatch-charcoal { background: linear-gradient(135deg, #4A4A4A, #3A3A3A); }
-    
-    /* Цвета для мужчин */
-    .swatch-white { 
-      background: linear-gradient(135deg, #FFFFFF, #F8F8F8); 
-      border-color: #ddd;
-    }
-    .swatch-black { 
-      background: linear-gradient(135deg, #3A3A3A, #2C2C2C); 
-    }
-    
-    .color-label {
-      font-size: 0.8em;
-      color: var(--graphite);
-      font-weight: 500;
-      text-align: center;
-    }
-    
-    .exclude-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #fff0f0;
-      color: #c62828;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85em;
-      font-weight: 500;
-      margin-top: 10px;
-      border: 1px solid #ffcdd2;
-    }
-    .exclude-badge i { font-size: 0.9em; }
-    
-    .dress-note {
-      font-size: 0.95em;
-      color: #666;
-      font-style: italic;
-      margin-top: 15px;
-      text-align: center;
-      padding-top: 15px;
-      border-top: 1px dashed var(--silver-border);
-    }
+    /* ===== УЛУЧШЕННЫЙ ДРЕСС-КОД ===== */
+.dress-code-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.dress-code-column {
+  background: var(--off-white);
+  padding: 25px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--silver-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.dress-code-column:hover {
+  border-color: var(--metallic-silver);
+  box-shadow: 0 10px 30px var(--silver-glow);
+  transform: translateY(-3px);
+}
+
+.dress-code-column h4 {
+  color: var(--graphite);
+  margin: 0 0 20px 0;
+  font-size: 1.3em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--silver);
+  width: 100%;
+  justify-content: center;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.color-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 75px;
+}
+
+.color-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 5px 15px var(--shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-circle::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(0,0,0,0.15) 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.color-circle:hover {
+  transform: scale(1.12) rotate(2deg);
+  box-shadow: 0 8px 25px var(--silver-glow), 0 0 0 3px var(--white);
+  z-index: 2;
+}
+
+.color-label {
+  font-size: 0.85em;
+  color: var(--graphite);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Цвета для женщин */
+.swatch-silver { 
+  background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 50%, #B8B8B8 100%); 
+}
+.swatch-gray { 
+  background: linear-gradient(135deg, #9E9E9E 0%, #BDBDBD 50%, #757575 100%); 
+}
+.swatch-graphite { 
+  background: linear-gradient(135deg, #6B6B6B 0%, #4A4A4A 50%, #3A3A3A 100%); 
+}
+.swatch-black { 
+  background: linear-gradient(135deg, #3A3A3A 0%, #2C2C2C 50%, #1A1A1A 100%); 
+}
+
+/* Цвета для мужчин */
+.swatch-white-shirt { 
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8F8F8 50%, #EEEEEE 100%); 
+  border-color: #ccc;
+}
+.swatch-black-pants { 
+  background: linear-gradient(135deg, #2C2C2C 0%, #1A1A1A 50%, #0F0F0F 100%); 
+}
+
+/* Исключённые цвета */
+.exclude-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  border: 2px solid var(--silver);
+  box-shadow: 0 2px 8px var(--silver-glow);
+  color: var(--soft-charcoal);
+  color: #181515;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9em;
+  font-weight: 500;
+  margin-top: 5px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(198, 40, 40, 0.08);
+}
+
+.exclude-badge i {
+  font-size: 0.95em;
+}
+
+.excluded-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  position: relative;
+  margin-right: 4px;
+}
+
+.excluded-color::after {
+  content: "✕";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #211d1d;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0 0 2px #fff;
+}
+
+.mens-note {
+  font-size: 0.9em;
+  color: #555;
+  margin: 10px 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  background: rgba(192, 192, 192, 0.15);
+  border-radius: 20px;
+  border: 1px dashed var(--silver-border);
+}
+
+.dress-note {
+  font-size: 0.95em;
+  color: #666;
+  font-style: italic;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--silver-border);
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Адаптивность для дресс-кода */
+@media (max-width: 768px) {
+  .dress-code-wrapper {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .color-circle {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .color-label {
+    font-size: 0.8em;
+  }
+  
+  .exclude-badge {
+    font-size: 0.85em;
+    padding: 7px 14px;
+  }
+}
 
     /* ===== RSVP ===== */
     .rsvp {
@@ -750,7 +843,7 @@
     }
     .form-label.required::after {
       content: " *";
-      color: #c62828;
+      color: #211d1d;;
     }
     .form-input, .form-textarea {
       width: 100%;
@@ -854,8 +947,8 @@
     }
     .save-error {
       background: rgba(244, 67, 54, 0.12);
-      border: 1px solid rgba(244, 67, 54, 0.35);
-      color: #c62828;
+      border: 1px solid rgba(244, 205, 203, 0.35);
+      color: #d0bdbd;
     }
     .save-loading {
       background: rgba(150, 150, 150, 0.12);
@@ -1046,60 +1139,73 @@
   </section>
 
   <!-- ДРЕСС-КОД: ВИЗУАЛЬНЫЙ -->
-  <section class="details">
-    <h2 class="section-title">Дресс-код</h2>
-    <div class="details-container">
-      <div class="detail-item">
-        <div class="detail-icon"><i class="fas fa-palette"></i></div>
-        <div class="detail-content">
-         
-          <div class="dress-code-wrapper">
-            <!-- Для женщин -->
-            <div class="dress-code-column">
-              <h4>Для дам</h4>
-              <div class="color-swatches">
-                <div class="color-swatch">
-                  <div class="color-circle swatch-silver"></div>
-                  <span class="color-label">Серебро</span>
-                </div>
-                <div class="color-swatch">
-                  <div class="color-circle swatch-light-silver"></div>
-                  <span class="color-label">Светлое серебро</span>
-                </div>
-                <div class="color-swatch">
-                  <div class="color-circle swatch-graphite"></div>
-                  <span class="color-label">Графит</span>
-                </div>
-                <div class="color-swatch">
-                  <div class="color-circle swatch-charcoal"></div>
-                  <span class="color-label">Мягкий угольный</span>
-                </div>
-              
+<section class="details" id="dresscode">
+  <h2 class="section-title">Дресс-код</h2>
+  <div class="details-container">
+    <div class="detail-item">
+      <div class="detail-icon"><i class="fas fa-gem"></i></div>
+      <div class="detail-content">
+        <h3>Цветовая палитра</h3>
+        <p style="margin-bottom: 25px; font-style: italic; color: #666;">
+          Мы будем рады, если вы поддержите нашу серебряную тему в своих образах 
+        </p>
+        
+        <div class="dress-code-wrapper">
+          <!-- Для женщин -->
+          <div class="dress-code-column women">
+            <h4><i class="fas fa-female"></i> Для дам</h4>
+            <div class="color-swatches">
+              <div class="color-swatch">
+                <div class="color-circle swatch-silver" title="Серебро"></div>
+                <span class="color-label">Серебро</span>
+              </div>
+              <div class="color-swatch">
+                <div class="color-circle swatch-gray" title="Серый"></div>
+                <span class="color-label">Серый</span>
+              </div>
+              <div class="color-swatch">
+                <div class="color-circle swatch-graphite" title="Графит"></div>
+                <span class="color-label">Графит</span>
+              </div>
+              <div class="color-swatch">
+                <div class="color-circle swatch-black" title="Чёрный"></div>
+                <span class="color-label">Чёрный</span>
+              </div>
             </div>
-            
-            <!-- Для мужчин -->
-            <div class="dress-code-column">
-              <h4>Для мужчин</h4>
-              <div class="color-swatches">
-                <div class="color-swatch">
-                  <div class="color-circle swatch-white"></div>
-                  <span class="color-label">Рубашка: белая</span>
-                </div>
-                <div class="color-swatch">
-                  <div class="color-circle swatch-black"></div>
-                  <span class="color-label">Брюки: тёмные</span>
-                </div>
-              
+            <div class="exclude-badge">
+              <i class="fas fa-ban"></i> Исключить: 
+              <span class="excluded-color" style="background: #fff; border: 1px solid #ddd;"></span> Белый
             </div>
           </div>
           
-          
+          <!-- Для мужчин -->
+          <div class="dress-code-column men">
+            <h4><i class="fas fa-male"></i> Для мужчин</h4>
+            <div class="color-swatches">
+              <div class="color-swatch">
+                <div class="color-circle swatch-white-shirt" title="Белая рубашка"></div>
+                <span class="color-label">Рубашка</span>
+              </div>
+              <div class="color-swatch">
+                <div class="color-circle swatch-black-pants" title="Чёрные брюки"></div>
+                <span class="color-label">Брюки</span>
+              </div>
+            </div>
+            <div class="mens-note">
+              <i class="fas fa-shirt"></i> Рубашка с длинным рукавом
+            </div>
+            <div class="exclude-badge">
+              <i class="fas fa-ban"></i> Исключить: 
+              <span class="excluded-color" style="background: #10498a;"></span> Синие брюки
+            </div>
+          </div>
         </div>
+        
+        
       </div>
-      
-      
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- RSVP -->
   <section class="rsvp">
