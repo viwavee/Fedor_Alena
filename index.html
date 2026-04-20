@@ -1316,16 +1316,15 @@
 💬 Сообщение: ${message}
 📅 Свадьба: 11.09.2026, Фёдор & Алёна`;
 
-      // В РЕАЛЬНОМ ПРОЕКТЕ: раскомментируйте и замените на ваши данные
-      /*
-      const BOT_TOKEN = "YOUR_BOT_TOKEN";
-      const CHAT_ID = "YOUR_CHAT_ID";
+      
+      const BOT_TOKEN = "8247024343:AAHRkeSb_JS8zMPmKgFU-VNFhpaX9tJ7Yts";
+      const CHAT_ID = "658905866 813055593";
       await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: "HTML" })
       });
-      */
+      
       
       // Демо-режим: имитация отправки
       await new Promise(resolve => setTimeout(resolve, 1200));
