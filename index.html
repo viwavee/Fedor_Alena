@@ -297,29 +297,63 @@
       color: var(--graphite);
     }
     .wedding-day {
-      background: linear-gradient(135deg, var(--silver), var(--light-silver));
-      color: var(--soft-charcoal);
-      font-weight: 600;
-      box-shadow: 0 4px 15px var(--silver-glow);
-      position: relative;
-      border: 2px solid var(--white);
+    background: 
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, transparent 60%),
+      linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 25%, #F2F2F2 50%, #B8B8B8 75%, #E8E8E8 100%);
+    color: var(--soft-charcoal);
+    font-weight: 600;
+    box-shadow: 
+      0 4px 15px var(--silver-glow),
+      0 0 0 2px var(--white),
+      0 0 20px rgba(192, 192, 192, 0.6);
+    position: relative;
+    border: 2px solid var(--white);
+    animation: pulseSilver 3s ease-in-out infinite;
     }
+
     .wedding-day::after {
       content: "♥";
       position: absolute;
-      top: -8px;
-      right: -8px;
-      font-size: 0.7em;
+      top: -10px;
+      right: -10px;
+      font-size: 0.75em;
       color: var(--graphite);
-      background: var(--white);
+      background: linear-gradient(135deg, var(--silver), var(--light-silver));
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--silver);
+      border: 2px solid var(--white);
+      box-shadow: 0 3px 10px var(--silver-glow);
+      animation: float 2s ease-in-out infinite;
     }
+
+    /* Блеск при наведении */
+    .wedding-day::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.6) 45%,
+        rgba(255,255,255,0.9) 50%,
+        rgba(255,255,255,0.6) 55%,
+        transparent 100%
+      );
+      transition: left 0.7s ease;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+  .wedding-day:hover::before {
+    left: 100%;
+}
     .empty-day { visibility: hidden; }
 
     /* ===== ОБРАТНЫЙ ОТСЧЁТ — СЕРЕБРЯНЫЙ ===== */
@@ -550,25 +584,25 @@
       gap: 35px;
     }
     .detail-item {
-      background: var(--white);
-      border-radius: 20px;
-      box-shadow: 0 15px 35px var(--shadow);
-      padding: 35px 40px;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-start;
-      gap: 25px;
-      border: 1px solid var(--silver-border);
+      align-items: center; /* Центрируем иконку и текст по вертикали */
     }
     .detail-item:hover {
       transform: translateY(-8px);
       box-shadow: 0 25px 50px var(--shadow-hover);
       border-color: var(--metallic-silver);
     }
+    .detail-icon-wrapper {
+      display: flex;
+      flex-direction: row !important; 
+      align-items: center;
+      justify-content: center;
+      text-align: center;  
+      gap: 15px;
+      flex-shrink: 0;
+      margin-bottom: 35px; 
+    }
+
     .detail-icon {
-      background: linear-gradient(135deg, var(--light-silver), var(--silver));
       width: 70px;
       height: 70px;
       border-radius: 50%;
@@ -576,11 +610,30 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: var(--graphite);
       font-size: 1.8em;
-      box-shadow: 0 8px 20px var(--silver-glow);
+      background: linear-gradient(135deg, var(--light-silver), var(--silver));
       border: 3px solid var(--white);
+      box-shadow: 0 8px 20px var(--silver-glow);
+      color: var(--graphite);
     }
+
+
+    .icon-label {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.15em;
+      font-weight: 500;
+      color: var(--graphite);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap; /* Запрещаем перенос текста */
+    }
+
+    /* Адаптация только размеров для мобильных, без смены направления */
+    @media (max-width: 768px) {
+      .detail-icon { width: 60px; height: 60px; font-size: 1.6em; }
+      .icon-label { font-size: 1em; }
+    }
+  
     .detail-content {
       flex: 1;
       text-align: left;
@@ -609,6 +662,7 @@
       font-size: 1.05em;
       margin-bottom: 8px;
     }
+
 
     /* ===== УЛУЧШЕННЫЙ ДРЕСС-КОД ===== */
 .dress-code-wrapper {
@@ -859,6 +913,22 @@
       background: var(--off-white);
       font-family: "Montserrat", sans-serif;
     }
+    /* Ошибки валидации */
+    .form-error {
+      display: none;
+      color: #c62828;
+      font-size: 0.85em;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .form-input.error, .form-textarea.error {
+      border-color: #c62828 !important;
+      box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15) !important;
+    }
+    .form-group.error .form-error {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
     .form-input:focus, .form-textarea:focus {
       border-color: var(--silver);
       box-shadow: 0 0 0 4px var(--silver-glow);
@@ -1105,16 +1175,21 @@
       
       <div class="location-photos">
         <div class="location-photo">
-          <img src="торжественный_зал.webp" alt="Банкетная зона">
-          <div class="location-photo-caption">Банкетная зона</div>
+          <img src="вид_с_наружи.jpg" alt="Банкетная зона">
+          
         </div>
       </div>
       
-      <div class="location-map">
+     <div class="location-map">
         <iframe 
-          src="https://yandex.ru/map-widget/v1/?text=Киров%2C%20ул.%20Профсоюзная%2C%20д.%201&z=17" 
-          width="100%" height="100%" frameborder="0"
-          style="border:0; border-radius: 12px;" allowfullscreen aria-hidden="false" tabindex="0">
+          src="https://yandex.ru/map-widget/v1/?text=Киров%2C%20ул.%20Профсоюзная%2C%20д.%201&z=17&pt=49.683860,58.616078,pm2whm" 
+          width="100%" 
+          height="100%" 
+          frameborder="0"
+          style="border:0; border-radius: 12px;" 
+          allowfullscreen 
+          aria-hidden="false" 
+          tabindex="0">
         </iframe>
       </div>
       
@@ -1140,11 +1215,16 @@
 
   <!-- ДРЕСС-КОД: ВИЗУАЛЬНЫЙ -->
 <section class="details" id="dresscode">
-  <h2 class="section-title">Дресс-код</h2>
+  <h2 class="section-title">Детали</h2>
   <div class="details-container">
     <div class="detail-item">
-      <div class="detail-icon"><i class="fas fa-gem"></i></div>
-      <div class="detail-content">
+      <div class="detail-icon-wrapper">
+        <div class="detail-icon">
+          <i class="fas fa-gem"></i>
+        </div>
+      <span class="icon-label">Дресс-код</span>
+    </div>
+  <div class="detail-content">
         
         <!-- Надпись по центру и большими буквами -->
         <p style="
@@ -1220,40 +1300,85 @@
   <!-- RSVP -->
   <section class="rsvp">
     <h2 class="section-title">Подтвердите присутствие</h2>
-    <form class="rsvp-form" id="rsvpForm">
+    <form class="rsvp-form" id="rsvpForm" novalidate>
+      <!-- Имя (обязательно) -->
       <div class="form-group">
         <label class="form-label required" for="name">Ваше имя и фамилия</label>
-        <input type="text" id="name" name="name" class="form-input" placeholder="Например: Анна Петрова" required>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-input" 
+          placeholder="Например: Анна Петрова" 
+          required 
+          pattern="^[\sа-яА-ЯёЁa-zA-Z\-']{2,50}$"
+          title="Пожалуйста, введите имя и фамилию">
+        <div class="form-error" id="nameError">Пожалуйста, введите корректное имя</div>
       </div>
+
+      <!-- Присутствие (обязательно) -->
       <div class="form-group">
         <label class="form-label required">Вы будете присутствовать?</label>
         <div class="radio-group">
           <label><input type="radio" name="attendance" value="Да" required> Да, с радостью!</label>
           <label><input type="radio" name="attendance" value="Нет"> К сожалению, не смогу</label>
         </div>
+        <div class="form-error" id="attendanceError">Пожалуйста, выберите вариант</div>
       </div>
+
+      <!-- Количество гостей -->
       <div class="form-group">
         <label class="form-label" for="guests">Количество гостей (включая вас)</label>
-        <input type="number" id="guests" name="guests" class="form-input" placeholder="1" min="1" max="6" value="1">
+        <input 
+          type="number" 
+          id="guests" 
+          name="guests" 
+          class="form-input" 
+          placeholder="1" 
+          min="1" 
+          max="10" 
+          value="1">
       </div>
+
+      <!-- Аллергии -->
       <div class="form-group">
         <label class="form-label">Есть ли у вас пищевые аллергии или ограничения?</label>
-        <textarea id="allergies" name="allergies" class="form-textarea" placeholder="Например: не ем молочное, аллергия на орехи... (можно оставить пустым)"></textarea>
+        <textarea 
+          id="allergies" 
+          name="allergies" 
+          class="form-textarea" 
+          placeholder="Напишите сообщение(необязательно)"></textarea>
       </div>
+
+      <!-- 🍷 Предпочтения по напиткам (НОВОЕ) -->
       <div class="form-group">
-        <label class="form-label">Дополнительные пожелания</label>
-        <textarea id="message" name="message" class="form-textarea" placeholder="Ваше сообщение (необязательно)"></textarea>
+        <label class="form-label">Предпочтения по алкогольным напиткам</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="drinks" value="Красное вино"> Красное вино</label>
+          <label><input type="checkbox" name="drinks" value="Белое вино">  Белое вино</label>
+          <label><input type="checkbox" name="drinks" value="Шампанское">  Шампанское</label>
+          <label><input type="checkbox" name="drinks" value="Водка"> Водка</label>
+          <label><input type="checkbox" name="drinks" value="Виски"> Виски</label>
+          <label><input type="checkbox" name="drinks" value="Не употребляю алкоголь"> Не употребляю алкоголь</label>
+        </div>
       </div>
+
+      <!-- Дедлайн -->
       <div class="deadline-note">
         <i class="fas fa-clock"></i> 
         <strong>Просьба подтвердить участие до 1 августа 2026 года</strong>
       </div>
+
+      <!-- Кнопка -->
       <button type="submit" class="submit-btn">
         <i class="fa-solid fa-paper-plane"></i> Отправить ответ
       </button>
+
+      <!-- Статусы -->
       <div class="save-status save-loading" id="loadingStatus">Отправка...</div>
-      <div class="save-status save-success" id="successStatus">Спасибо! Ваш ответ принят ✨</div>
+      <div class="save-status save-success" id="successStatus">Спасибо! Ваш ответ принят </div>
       <div class="save-status save-error" id="errorStatus">Ошибка при отправке. Пожалуйста, попробуйте позже</div>
+    
     </form>
   </section>
 
@@ -1289,52 +1414,102 @@
     updateCountdown();
     window.addEventListener('resize', updateCountdown);
 
-    // ===== ФОРМА RSVP =====
+    // ===== ФОРМА RSVP: Валидация и отправка =====
     const form = document.getElementById("rsvpForm");
     const loading = document.getElementById("loadingStatus");
     const success = document.getElementById("successStatus");
     const errorMsg = document.getElementById("errorStatus");
 
+    // Функция очистки ошибок
+    function clearErrors() {
+      document.querySelectorAll('.form-group.error').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.form-input.error, .form-textarea.error').forEach(el => el.classList.remove('error'));
+    }
+
+    // Функция показа ошибки
+    function showError(fieldId) {
+      const group = document.getElementById(fieldId).closest('.form-group');
+      const input = document.getElementById(fieldId);
+      if (group) group.classList.add('error');
+      if (input) input.classList.add('error');
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      clearErrors();
+      
+      let isValid = true;
+
+      // 1. Валидация имени
+      const name = form.name.value.trim();
+      const namePattern = /^[\sа-яА-ЯёЁa-zA-Z\-']{2,50}$/;
+      if (!name || !namePattern.test(name)) {
+        showError('name');
+        isValid = false;
+      }
+
+      // 2. Валидация присутствия
+      const attendance = form.attendance.value;
+      if (!attendance) {
+        const attendanceGroup = document.querySelector('input[name="attendance"]').closest('.form-group');
+        if (attendanceGroup) attendanceGroup.classList.add('error');
+        isValid = false;
+      }
+
+      // 3. Если не валидно — выходим
+      if (!isValid) {
+        const firstError = document.querySelector('.form-group.error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // ✅ Всё валидно — показываем загрузку
       loading.style.display = "block";
       success.style.display = "none";
       errorMsg.style.display = "none";
 
-      const name = form.name.value.trim();
-      const attendance = form.attendance.value;
+      // Собираем данные
       const guests = form.guests.value || "1";
       const allergies = form.allergies.value.trim() || "Нет";
-      const message = form.message.value.trim() || "—";
-
-      const text = `
-💍 <b>Новый ответ на приглашение:</b>
-👤 Имя: ${name}
-✅ Присутствие: ${attendance}
-👥 Гостей: ${guests}
-🍽️ Аллергии: ${allergies}
-💬 Сообщение: ${message}
-📅 Свадьба: 11.09.2026, Фёдор & Алёна`;
-
       
+      // 🍷 Собираем выбранные напитки
+      const drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked'))
+        .map(cb => cb.value)
+        .join(', ') || "Не указано";
+
+      // Формируем сообщение для Telegram
+      const text = `
+      💍 <b>Новый ответ на приглашение:</b>
+      👤 Имя: ${name}
+      ✅ Присутствие: ${attendance}
+      👥 Гостей: ${guests}
+      🍽️ Аллергии: ${allergies}
+      🍷 Напитки: ${drinks}
+      `;
+
+      // 🤖 Ваши оригинальные настройки Telegram (оставил как было)
       const BOT_TOKEN = "8247024343:AAHRkeSb_JS8zMPmKgFU-VNFhpaX9tJ7Yts";
       const CHAT_ID = "658905866 813055593";
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: "HTML" })
-      });
       
-      
-      // Демо-режим: имитация отправки
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      
-      loading.style.display = "none";
-      success.style.display = "block";
-      form.reset();
-      setTimeout(() => { success.style.display = "none"; }, 8000);
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: "HTML" })
+        });
+        
+        loading.style.display = "none";
+        success.style.display = "block";
+        form.reset();
+        setTimeout(() => { success.style.display = "none"; }, 8000);
+        
+      } catch (err) {
+        console.error("Ошибка отправки:", err);
+        loading.style.display = "none";
+        errorMsg.style.display = "block";
+        setTimeout(() => { errorMsg.style.display = "none"; }, 6000);
+      }
     });
-
     // ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ =====
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
