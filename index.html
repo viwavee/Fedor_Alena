@@ -1500,17 +1500,19 @@
     if (input) input.classList.add('error');
   }
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // ⚠️ Обязательно предотвращаем перезагрузку
+    form.addEventListener("submit", async (e) => {
+    e.preventDefault();
     clearErrors();
     
     let isValid = true;
 
-    // Валидация имени
-    const name = form.name.value.trim();
-    const namePattern = /^[\sа-яА-ЯёЁa-zA-Z\-']{2,50}$/;
-    if (!name || !namePattern.test(name)) {
-      showError('name');
+    // ✅ Валидация имён гостей (обновлено!)
+    const guestsNames = document.getElementById('guestsNames').value.trim();
+    // Разрешаем буквы, пробелы, запятые, дефисы, апострофы (мин. 3 символа)
+    const namesPattern = /^[\sа-яА-ЯёЁa-zA-Z,\-']{3,100}$/;
+    
+    if (!guestsNames || !namesPattern.test(guestsNames)) {
+      showError('guestsNames');  // ✅ Правильный ID
       isValid = false;
     }
 
@@ -1533,8 +1535,7 @@
     success.style.display = "none";
     errorMsg.style.display = "none";
 
-    // Собираем данные (обновлённая версия)
-    const guestsNames = document.getElementById('guestsNames').value.trim();
+    // Собираем данные
     const allergies = form.allergies?.value?.trim() || "Нет";
     const drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked'))
       .map(cb => cb.value)
@@ -1549,19 +1550,16 @@
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
-          guestsNames: guestsNames,  
+          guestsNames: guestsNames,
           attendance: attendance,
           allergies: allergies,
           drinks: drinks
         })
       });
 
-      // Поскольку no-cors не даёт прочитать ответ, считаем успешным, если нет ошибки сети
       loading.style.display = "none";
       success.style.display = "block";
       form.reset();
-      
-      // Скрыть сообщение об успехе через 5 секунд
       setTimeout(() => { success.style.display = "none"; }, 5000);
       
     } catch (err) {
