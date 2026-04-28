@@ -881,6 +881,39 @@
   line-height: 1.5;
   text-align: center;
 }
+/* ===== БЛОК ПОЖЕЛАНИЯ ===== */
+.wishes {
+  background: linear-gradient(to bottom, var(--light-gray), var(--off-white));
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.wishes-card {
+  background: var(--white);
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px var(--shadow);
+  border: 1px solid var(--silver-border);
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+.wishes-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5em;
+  color: var(--graphite);
+  line-height: 1.7;
+  margin-bottom: 25px;
+  
+}
+
+
+
+
 
 /* Адаптивность для дресс-кода */
 @media (max-width: 768px) {
@@ -1248,6 +1281,16 @@
     </div>
   </section>
 
+  <!-- ПОЖЕЛАНИЯ -->
+<section class="wishes">
+  <h2 class="section-title">Пожелания</h2>
+  <div class="wishes-card">
+    <p class="wishes-text">
+      Дорогие гости, приносите с собой веселье и радость в душе, а подарки — в конверте! 
+    </p>
+  </div>
+</section>
+
   <!-- ДРЕСС-КОД: ВИЗУАЛЬНЫЙ -->
 <section class="details" id="dresscode">
   <h2 class="section-title">Детали</h2>
@@ -1338,17 +1381,20 @@
     <form class="rsvp-form" id="rsvpForm" novalidate>
       <!-- Имя (обязательно) -->
       <div class="form-group">
-        <label class="form-label required" for="name">Ваше имя и фамилия</label>
+        <label class="form-label required" for="guestsNames">Имена гостей</label>
         <input 
           type="text" 
-          id="name" 
-          name="name" 
+          id="guestsNames" 
+          name="guestsNames" 
           class="form-input" 
-          placeholder="Например: Анна Петрова" 
+          placeholder="Например: Анна, Михаил, Екатерина" 
           required 
-          pattern="^[\sа-яА-ЯёЁa-zA-Z\-']{2,50}$"
-          title="Пожалуйста, введите имя и фамилию">
-        <div class="form-error" id="nameError">Пожалуйста, введите корректное имя</div>
+          pattern="^[\sа-яА-ЯёЁa-zA-Z,\-']{3,100}$"
+          title="Введите имена через запятую">
+        <div class="form-error" id="guestsNamesError">Пожалуйста, введите имена через запятую</div>
+        <small style="display: block; margin-top: 6px; color: #666; font-size: 0.9em;">
+          <i class="fas fa-info-circle"></i> Укажите всех, кто придёт с вами
+        </small>
       </div>
 
       <!-- Присутствие (обязательно) -->
@@ -1361,19 +1407,6 @@
         <div class="form-error" id="attendanceError">Пожалуйста, выберите вариант</div>
       </div>
 
-      <!-- Количество гостей -->
-      <div class="form-group">
-        <label class="form-label" for="guests">Количество гостей (включая вас)</label>
-        <input 
-          type="number" 
-          id="guests" 
-          name="guests" 
-          class="form-input" 
-          placeholder="1" 
-          min="1" 
-          max="10" 
-          value="1">
-      </div>
 
       <!-- Аллергии -->
       <div class="form-group">
@@ -1500,29 +1533,26 @@
     success.style.display = "none";
     errorMsg.style.display = "none";
 
-    // Собираем данные
-    const guests = form.guests.value || "1";
-    const allergies = form.allergies.value.trim() || "Нет";
+    // Собираем данные (обновлённая версия)
+    const guestsNames = document.getElementById('guestsNames').value.trim();
+    const allergies = form.allergies?.value?.trim() || "Нет";
     const drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked'))
       .map(cb => cb.value)
       .join(', ') || "Не указано";
 
-    // 📤 Отправка в Google Apps Script (исправленный формат!)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwv33IxaOO3U7vyJBwxDsuFYqfdWfqMaB3RNULlpuKo355jLG1B5VmSHPmXEKZyVGQ1HA/exec';
-    
+    // 📤 Отправка в Google Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxgaG71jAyCzR4Eg0em_g2BFNQCv_q4l1Zh_UhpRCGOlvdxvDk7lX84XwiGgVGIGWUKDQ/exec';
+
     try {
-      // Вариант 1: Отправка как text/plain (самый надёжный для no-cors)
       await fetch(scriptURL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
-          name: name,
+          guestsNames: guestsNames,  
           attendance: attendance,
-          guests: guests,
           allergies: allergies,
-          drinks: drinks,
-          
+          drinks: drinks
         })
       });
 
